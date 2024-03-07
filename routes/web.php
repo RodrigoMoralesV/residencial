@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BloqueController;
 use App\Http\Controllers\EventoController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PaqueteController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ReservaController;
@@ -23,13 +24,19 @@ use App\Http\Controllers\ZonaComunController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('residentes/index');
-//});
+Route::get('/', function () {
+    return view('login');
+});
 
-// Route::get('/layout', function() {
-//     return view('layout');
-// });
+Route::get('/login', function() {
+    return view('login');
+});
+
+Route::get('/register', function() {
+    return view('register');
+});
+
+Route::post('/register', [LoginController::class, 'register']);
 
 Route::get('/bloques', function() {
     return view('index');

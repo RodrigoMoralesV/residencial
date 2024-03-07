@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reserva;
+use App\Models\Zonas_comun;
 use Illuminate\Http\Request;
 
 class ReservaController extends Controller
@@ -23,7 +24,8 @@ class ReservaController extends Controller
      */
     public function create()
     {
-        return view('reservas.new');
+        $zonas_comunes = Zonas_comun ::where('estado',1)->get();
+        return view('reservas.new',compact('zonas_comunes'));
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permiso;
+use App\Models\Vivienda;
 use Illuminate\Http\Request;
 
 class PermisoController extends Controller
@@ -21,7 +22,8 @@ class PermisoController extends Controller
      */
     public function create()
     {
-        return view('permisos.new');
+        $viviendas = Vivienda::where('estado',1)->get();
+        return view('permisos.new',compact('viviendas'));
     }
 
     /**
