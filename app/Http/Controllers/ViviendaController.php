@@ -23,8 +23,8 @@ class ViviendaController extends Controller
      */
     public function create()
     {
-        $bloques = Bloque::all();
-        return view("viviendas.new",compact('bloques'));
+        $viviendas = Bloque::all();
+        return view("viviendas.new",compact('viviendas'));
     }
 
     /**
@@ -57,7 +57,7 @@ class ViviendaController extends Controller
      */
     public function edit(Vivienda $vivienda)
     {
-        $viviendas = Vivienda::all();
+        $bloques = Bloque::all();
         return view("viviendas.edit",compact('bloques'));
     }
 

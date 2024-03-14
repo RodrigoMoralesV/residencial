@@ -9,15 +9,13 @@
 <table class="table">
     <a href="viviendas/create" class="btn btn-success float-end">Nueva</a>
     <hr><hr>
-    <a href="viviendas/edit" class="btn btn-info float-end">Editar</a>
-    <hr><hr>
-    <a href="" class="btn btn-danger float-end">Eliminar</a>
     <thead>
         <tr>
             <th scope="col">Nomenclatura</th>
             <th scope="col">Bloque</th>
             <th scope="col">Teléfono</th>
             <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
         </tr>
     </thead>
     @foreach ($viviendas as $vivienda)
@@ -33,6 +31,7 @@
                     Inactiva
                 @endif
             </td>
+            <td><a class="btn btn-info" href="{{ route('viviendas.edit',$vivienda->id) }}">Editar</a><a class="btn btn-danger" href="{{ route('viviendas.destroy',$vivienda->id) }}">Eliminar</a></td>
         </tr>
     </tbody>
     @endforeach

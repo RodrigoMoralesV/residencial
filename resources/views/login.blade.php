@@ -31,6 +31,18 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 
+<style>
+    .error{
+        color: red;
+        text-align: center;
+        font-size: .9rem;
+        padding: 2px 0;
+        border: 1px solid red;
+        border-radius: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
 <body>
     <div class="container-fluid position-relative d-flex p-0">
         <!-- Spinner Start -->
@@ -48,29 +60,41 @@
                 <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
                     <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
+                            <a href="{{ url('/') }}" class="">
                                 <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Aigis Co.</h3>
                             </a>
                             <h3>Iniciar Sesión</h3>
                         </div>
-                        
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control" id="floatingInput" placeholder="Email">
-                            <label for="floatingInput">Email</label>
-                        </div>
-                        <div class="form-floating mb-4">
-                            <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
-                            <label for="floatingPassword">Contraseña</label>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1"></label>
+                        <form action="check" method="post">
+                            @csrf
+
+                            @error( 'email' )
+                                <div class="error">
+                                    {{ $message }}
+                                </div>
+                            @enderror 
+
+                            <div class="form-floating mb-3">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="Email" name="email" value="{{ old('email') }}" autofocus required>
+                                <label for="floatingInput">Email</label>
                             </div>
-                            <a href="">¿Olvidó su contraseña?</a>
-                        </div>
-                        <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Entra</button>
-                        <p class="text-center mb-0">¿No tienes una cuenta? <a href="{{ url('/register') }}">Registrate.</a></p>
+
+                            <div class="form-floating mb-4">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña" name="password" required>
+                                <label for="floatingPassword">Contraseña</label>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Recordarme</label>
+                                </div>
+                                <a href="">¿Olvidó su contraseña?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Entra</button>
+                            <p class="text-center mb-0">¿No tienes una cuenta? <a href="{{ url('/register') }}">Registrate.</a></p>
+                        </form>
                     </div>
                 </div>
             </div>

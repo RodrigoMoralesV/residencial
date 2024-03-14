@@ -21,7 +21,7 @@ class PaqueteController extends Controller
      */
     public function create()
     {
-        //
+        return view('paquetes.new');
     }
 
     /**

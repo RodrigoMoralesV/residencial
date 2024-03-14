@@ -6,30 +6,36 @@
 
 @section('cuerpo')
 
+<div class="d-flex justify-content-end mb-2">
+    <a href="{{ route('paquetes.create') }}" class="btn btn-primary me-2">Nuevo</a>
+</div>
+
+<hr>
+
 <table class="table">
-<a href="" class="btn btn-primary float-end">Nueva</a>
-    <hr><hr>
-<a href="" class="btn btn-info float-end">Editar</a>
-   <thead>
-   <tr>
+    <thead>
+        <tr>
             <th scope="col">Destinatario</th>
-            <th scope="col">N#Vivienda</th>
-            <th scope="col">Recibido_por</th>
-            <th scope="col">Entregado_a</th>
+            <th scope="col">N° Vivienda</th>
+            <th scope="col">Recibido por</th>
+            <th scope="col">Entregado a</th>
             <th scope="col">Estado</th>
-   </tr>
-   </thead>
-   @foreach ($paquetes as $paquete)
-      <tbody>
-         <tr>
-            <td>{{$paquete->destinatario}}</td>
-            <td>{{$paquete->vivienda_id}}</td>
-            <td>{{$paquete->recibido_por}}</td>
-            <td>{{$paquete->entregado_a}}</td>
-            <td>{{$paquete->estado}}</td>
-         </tr>
-      </tbody>
-   @endforeach
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($paquetes as $paquete)
+            <tr>
+                <td>{{ $paquete->destinatario }}</td>
+                <td>{{ $paquete->vivienda_id }}</td>
+                <td>{{ $paquete->recibido_por }}</td>
+                <td>{{ $paquete->entregado_a }}</td>
+                <td>{{ $paquete->estado }}</td>
+                <td><a href="{{ route('paquetes.edit',$paquete->id) }}" class="btn btn-info">Editar</a></td>
+
+            </tr>
+        @endforeach
+    </tbody>
 </table>
 
 @endsection

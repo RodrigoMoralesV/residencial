@@ -21,7 +21,8 @@ class TiposViviendaController extends Controller
      */
     public function create()
     {
-        //
+        $tipos_vivienda = Bloque::all();
+        return view("tipos_vivienda.new",compact('tipos_vivienda'));
     }
 
     /**
@@ -45,7 +46,8 @@ class TiposViviendaController extends Controller
      */
     public function edit(Tipos_vivienda $tipos_vivienda)
     {
-        //
+        $bloques = Tipos_vivienda::all();
+        return view("Tipos_vivienda.edit",compact('bloques'));
     }
 
     /**

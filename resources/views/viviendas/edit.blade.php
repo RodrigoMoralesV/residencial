@@ -6,13 +6,13 @@
 
 @section('cuerpo')
 <h2>EDITAR REGISTRO</h2>
-    <a href="{{ url('viviendas') }}" class="btn btn-success                                                                                                                                                                                          mb-3 float-end">Volver</a>
+    <a href="{{ url('viviendas') }}" class="btn btn-success mb-3 float-end">Volver</a>
     <div class="row">
-        <form action="{{ route('viviendas.edit') }}" method="post">
+        <form action="" method="post">
             @csrf
             @method('PUT')
             <div class="col-md-6 mb-3">
-                <input type="text" name="nomenclatura" class="form-control" placeholder="Nomenclatura" value="{{ old('nombre') }}" required>
+                <input type="text" name="nomenclatura" class="form-control" placeholder="Nomenclatura" value="{{ old('$bloques->viviendas->nomenclatura') }}" required>
             </div>
             <div class="col-md-6 mb-3">
                 <select name="bloque_id">

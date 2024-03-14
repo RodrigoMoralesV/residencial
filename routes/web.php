@@ -38,6 +38,8 @@ Route::get('/register', function() {
 
 Route::post('/register', [LoginController::class, 'register']);
 
+Route::post('/check', [LoginController::class, 'check']);
+
 Route::get('/bloques', function() {
     return view('index');
 });

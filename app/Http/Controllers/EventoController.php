@@ -21,7 +21,7 @@ class EventoController extends Controller
      */
     public function create()
     {
-        //
+        return view('eventos.new');
     }
 
     /**
