@@ -53,11 +53,16 @@
                             </a>
                             <h3>Registrarse</h3>
                         </div>
-                        <form action="register" method="post">
+                        <form action="register" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingText" name="nombre" placeholder="Nombre de usuario" required autofocus>
                                 <label for="floatingText">Nombre de usuario</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="file" class="form-control" id="floatingInput" 
+                                name="foto">
+                                <label for="floatingInput">Foto de Perfil</label>
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="floatingInput" 

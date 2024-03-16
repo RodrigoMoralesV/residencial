@@ -9,7 +9,7 @@ use Auth;
 class LoginController extends Controller
 {
     public function register(Request $datos){
-
+        
         $datos['nombre'] = ucwords(strtolower( $datos->get('nombre') ));
 
         $datos['email'] = strtolower( $datos->get('email') );
