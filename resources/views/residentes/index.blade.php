@@ -5,11 +5,11 @@ Residentes
 @endsection
 
 @section('nuevo')
-<a class="btn btn-primary me-2" href="{{ route('reservas.create') }}">Nuevo</a>
+<a class="btn btn-primary float-right" href="{{ route('reservas.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
-<table class="ttable table-hover text-nowrap">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
       <th scope="col">Nombre</th>

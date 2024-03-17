@@ -1,11 +1,11 @@
 @extends('layout')
 
 @section('nombre')
-  Bloques
+Bloques
 @endsection
 
 @section('nuevo')
-  <a class="btn btn-primary" href="{{ route('bloques.create') }}">Nuevo</a>
+<a class="btn btn-primary float-right" href="{{ route('bloques.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
@@ -29,9 +29,13 @@
         </a>
       </td>
       <td>
-        <a class="btn btn-danger" href="{{ route('bloques.destroy',$bloque->id) }}">
-          <i class="fas fa-trash"></i>
-        </a>
+        <form action="{{route('bloques.destroy',$bloque->id)}}" method="post">
+          @csrf
+          @method('DELETE')
+          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
       </td>
     </tr>
   </tbody>

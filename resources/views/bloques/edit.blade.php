@@ -1,0 +1,34 @@
+@extends('layout')
+
+@section('nombre')
+Editar bloque
+@endsection
+
+@section('nuevo')
+<a class="btn btn-secondary float-right" href="{{ route('bloques.index') }}">Volver</a>
+@endsection
+
+@section('cuerpo')
+
+<form action="{{ route('bloques.update',$bloque->id) }}" method="post" class="mb-4">
+    @csrf
+    @method('PUT')
+
+    <div class="mb-3 col-md-3 pt-4">
+        <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre',$bloque->nombre) }}" class="form-control" autofocus required>
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <select name="estado" class="form-select" required>
+            <option value="">Seleccione el estado</option>
+            <option value="1">Activo</option>
+            <option value="2">Inactivo</option>
+        </select>
+    </div>
+
+    <div class="mb-3 col-md-3">
+        <input type="submit" class="btn btn-success col-md-4" value="Editar">
+        <a href="{{ route('bloques.index') }}" class="btn btn-danger col-md-5">Cancelar</a>
+    </div>
+</form>
+@endsection

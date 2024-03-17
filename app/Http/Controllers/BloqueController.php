@@ -53,9 +53,10 @@ class BloqueController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bloque $bloque)
+    public function edit(string $id)
     {
-        //
+      $bloque = Bloque::find($id);
+      return view('bloques.edit',compact('bloque'));
     }
 
     /**
@@ -63,14 +64,20 @@ class BloqueController extends Controller
      */
     public function update(Request $request, Bloque $bloque)
     {
-        //
+      $datos = $request->all();
+
+      $bloque->update($datos);
+
+      return redirect('bloques');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bloque $bloque)
+    public function destroy(string $id)
     {
-        //
+      Bloque::destroy($id);
+
+      return redirect('bloques');
     }
 }

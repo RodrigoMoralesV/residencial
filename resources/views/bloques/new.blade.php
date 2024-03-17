@@ -5,7 +5,7 @@ Nuevo bloque
 @endsection
 
 @section('nuevo')
-<a class="btn btn-secondary" href="{{ route('bloques.index') }}">Volver</a>
+<a class="btn btn-secondary float-right" href="{{ route('bloques.index') }}">Volver</a>
 @endsection
 
 @section('cuerpo')
@@ -14,7 +14,7 @@ Nuevo bloque
     @csrf
 
     <div class="mb-3 col-md-3 pt-4">
-        <input type="text" name="nombre" placeholder="Nombre" value="{{ old('nombre') }}" class="form-control" autofocus required>
+        <input type="text" name="nombre" placeholder="Nombre" class="form-control" autofocus required>
     </div>
 
     <div class="mb-3 col-md-3">
@@ -27,7 +27,7 @@ Nuevo bloque
 
     <div class="mb-3 col-md-3">
         <input type="submit" class="btn btn-success col-md-4" value="Registrar">
-        <a href="{{ route('bloques.index') }}" class="btn btn-danger col-md-4">Cancelar</a>
+        <a href="{{ route('bloques.index') }}" class="btn btn-danger col-md-5">Cancelar</a>
     </div>
 </form>
 @endsection
