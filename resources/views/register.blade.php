@@ -1,109 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="utf-8">
-    <title>Registrarse</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registrarse</title>
 
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@500;700&display=swap" rel="stylesheet"> 
-    
-    <!-- Icon Font Stylesheet -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{{ url('plugins/fontawesome-free/css/all.min.css') }}">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
 </head>
+<body class="hold-transition register-page">
+<div class="register-box">
+  <div class="register-logo">
+    <a href="{{ url('/') }}"><b>Aigis </b>Co</a>
+  </div>
 
-<body>
-    <div class="container-fluid position-relative d-flex p-0">
-        <!-- Spinner Start -->
-        <div id="spinner" class="show bg-dark position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                <span class="sr-only">Loading...</span>
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg">Registrarse en el sistema</p>
+
+      <form action="register" method="post">
+        @csrf
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Nombre de Usuario" name="nombre" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
             </div>
+          </div>
         </div>
-        <!-- Spinner End -->
 
-
-        <!-- Sign Up Start -->
-        <div class="container-fluid">
-            <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-8 col-md-6 col-lg-5 col-xl-4">
-                    <div class="bg-secondary rounded p-4 p-sm-5 my-4 mx-3">
-                        <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
-                                <h3 class="text-primary"><i class="fa fa-user-edit me-2"></i>Aigis Co.</h3>
-                            </a>
-                            <h3>Registrarse</h3>
-                        </div>
-                        <form action="register" method="post" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingText" name="nombre" placeholder="Nombre de usuario" required autofocus>
-                                <label for="floatingText">Nombre de usuario</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="file" class="form-control" id="floatingInput" 
-                                name="foto">
-                                <label for="floatingInput">Foto de Perfil</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="email" class="form-control" id="floatingInput" 
-                                name="email"
-                                placeholder="name@example.com" required>
-                                <label for="floatingInput">Correo Electronico</label>
-                            </div>
-                            <div class="form-floating mb-4">
-                                <input type="password" class="form-control" id="floatingPassword" 
-                                name="password" placeholder="Contraseña" required>
-                                <label for="floatingPassword">Contraseña</label>
-                            </div>
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                                    <label class="form-check-label" for="exampleCheck1">Aceptar los términos</label>
-                                </div>
-                            </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Registrarse</button>
-                        </form>
-                        <p class="text-center mb-0">¿Ya tienes una cuenta? <a href="{{ url('/login') }}">Inicia sesión.</a></p>
-                    </div>
-                </div>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Email" name="email" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope"></span>
             </div>
+          </div>
         </div>
-        <!-- Sign Up End -->
+
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" placeholder="Password" name="password" required>
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
+              <label for="agreeTerms">
+               Estoy de acuerdo con los <a href="#">terminos</a>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+
+      <p class="text-center pt-4">Ya tienes una cuenta? <a href="{{ url('login') }}" class="text-center">Inicia sesión</a></p>
     </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
 
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/chart/chart.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="lib/tempusdominus/js/moment.min.js"></script>
-    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
 </body>
-
 </html>

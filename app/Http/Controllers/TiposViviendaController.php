@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tipos_vivienda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class TiposViviendaController extends Controller
 {
@@ -12,8 +13,8 @@ class TiposViviendaController extends Controller
      */
     public function index()
     {
-        $tipos_viviendas = Tipos_vivienda::where('estado',1)->get();
-        return view('tipos_viviendas.index',compact('tipos_viviendas'));
+        $tipos_vivienda = Tipos_vivienda::where('estado',1)->get();
+        return view('tipos_viviendas.index',compact('tipos_vivienda'));
     }
 
     /**
@@ -21,7 +22,7 @@ class TiposViviendaController extends Controller
      */
     public function create()
     {
-        $tipos_vivienda = Bloque::all();
+        $tipos_vivienda = Tipos_vivienda::all();
         return view("tipos_vivienda.new",compact('tipos_vivienda'));
     }
 
@@ -30,7 +31,17 @@ class TiposViviendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validador = Validator::make($request->all(),['nombre'=>'required|max:20','bloque_id'=>'required',
+        'estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+        Tipos_vivienda::create($datos);
+
+        return redirect('viviendas');
     }
 
     /**
@@ -46,14 +57,14 @@ class TiposViviendaController extends Controller
      */
     public function edit(Tipos_vivienda $tipos_vivienda)
     {
-        $bloques = Tipos_vivienda::all();
-        return view("Tipos_vivienda.edit",compact('bloques'));
+        $tipos_vivienda = Tipos_vivienda::all();
+        return view("Tipos_vivienda.edit",compact('tipos_vivienda'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tipos_vivienda $tipos_vivienda)
+    public function update(Request $request, Tipos_vivienda $tipo_vivienda)
     {
         //
     }
@@ -61,7 +72,7 @@ class TiposViviendaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tipos_vivienda $tipos_vivienda)
+    public function destroy(Tipos_vivienda $tipo_vivienda)
     {
         //
     }

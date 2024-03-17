@@ -45,7 +45,8 @@ class ZonaComunController extends Controller
      */
     public function edit(Zonas_comun $zonas_comun)
     {
-        //
+        $zonas_comun = Zonas_comun::all();
+        return view('edit',compact('zonas_comun'));
     }
 
     /**

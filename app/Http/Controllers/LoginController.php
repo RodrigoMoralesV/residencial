@@ -28,7 +28,7 @@ class LoginController extends Controller
         }
 
         return back()->withErrors([
-            'email' => 'El email no se encuentra registrado.',
+            'email' => 'El email no se encuentra registrado.'
         ])->onlyInput('email');
     }
 }

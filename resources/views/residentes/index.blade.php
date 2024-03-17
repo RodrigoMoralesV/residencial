@@ -9,7 +9,7 @@ Residentes
 @endsection
 
 @section('cuerpo')
-<table class="table">
+<table class="ttable table-hover text-nowrap">
   <thead>
     <tr>
       <th scope="col">Nombre</th>
@@ -17,6 +17,8 @@ Residentes
       <th scope="col">Bloque</th>
       <th scope="col">Nomenclatura</th>
       <th scope="col">Propietario</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
     </tr>
   </thead>
   @foreach ($residentes as $residente)
@@ -32,6 +34,16 @@ Residentes
         @else
         No
         @endif
+      </td>
+      <td>
+        <a class="btn btn-info" href="{{ route('residentes.edit',$residente->id) }}">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-danger" href="{{ route('residentes.destroy',$residente->id) }}">
+          <i class="fas fa-trash"></i>
+        </a>
       </td>
     </tr>
   </tbody>

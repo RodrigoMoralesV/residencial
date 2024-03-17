@@ -9,8 +9,7 @@ Eventos
 @endsection
 
 @section('cuerpo')
-
-<table class="table">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
       <th scope="col">Nombre</th>

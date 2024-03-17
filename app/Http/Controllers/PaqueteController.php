@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Paquete;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PaqueteController extends Controller
 {
@@ -21,7 +22,8 @@ class PaqueteController extends Controller
      */
     public function create()
     {
-        return view('paquetes.new');
+        $paquetes = Paquete::all();
+        return view("paquetes.new",compact('paquetes'));
     }
 
     /**
@@ -29,7 +31,20 @@ class PaqueteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validador = Validator::make($request->all(),['destinatario'=>'required',
+        'vivenda_id'=>'required',
+        'recibido_por'=>'required',
+        'entregado_a'=>'required',
+        'estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+        Paquete::create($datos);
+
+        return redirect('paquetes');
     }
 
     /**
@@ -45,7 +60,8 @@ class PaqueteController extends Controller
      */
     public function edit(Paquete $Paquete)
     {
-        //
+        $paquetes = Paquete::all();
+        return view("paquetes.edit",compact('paquetes'));
     }
 
     /**

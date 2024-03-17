@@ -16,6 +16,8 @@ Usuarios
       <th scope="col">Nombre</th>
       <th scope="col">E-mail</th>
       <th scope="col">Estado</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
       <th></th>
     </tr>
   </thead>
@@ -25,6 +27,19 @@ Usuarios
       <td>{{$usuario->nombre}}</td>
       <td>{{$usuario->email}}</td>
       <td>{{$usuario->estado}}</td>
+
+
+      <td>
+        <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-danger" href="{{ route('usuarios.destroy',$usuario->id) }}">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
+
     </tr>
   </tbody>
   @endforeach

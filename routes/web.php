@@ -25,14 +25,29 @@ use App\Http\Controllers\ZonaComunController;
 */
 
 Route::get('/', function () {
+    if(Auth::check()){
+        return view('home');
+    }
     return view('login');
 });
 
 Route::get('/login', function() {
+    if(Auth::check()){
+        return view('home');
+    }
     return view('login');
+})->name('login');
+
+Route::get('/logout', function() {
+    Auth::logout();
+
+    return redirect('login');
 });
 
 Route::get('/register', function() {
+    if(Auth::check()){
+        return view('home');
+    }
     return view('register');
 });
 
@@ -40,66 +55,32 @@ Route::post('/register', [LoginController::class, 'register']);
 
 Route::post('/check', [LoginController::class, 'check']);
 
-Route::get('/bloques', function() {
-    return view('index');
+Route::get('/home', function() {
+    if(Auth::check()){
+        return view('home');
+    }
+    return redirect('login');
 });
 
-Route::get('/eventos', function() {
-    return view('index');
+Route::middleware(['auth'])->group(function () {
+    
+    Route::resource('bloques',BloqueController::class);
+    
+    Route::resource('eventos',EventoController::class);
+    
+    Route::resource('paquetes',PaqueteController::class);
+    
+    Route::resource('permisos',PermisoController::class);
+    
+    Route::resource('reservas',ReservaController::class);
+    
+    Route::resource('residentes',ResidenteController::class);
+    
+    Route::resource('tipos_viviendas',TiposViviendaController::class);
+    
+    Route::resource('usuarios',UsuarioController::class);
+    
+    Route::resource('viviendas',ViviendaController::class);
+    
+    Route::resource('zonas_comunes',ZonaComunController::class);
 });
-
-Route::get('/paquetes', function() {
-    return view('index');
-});
-
-Route::get('/permisos', function() {
-    return view('index');
-});
-
-Route::get('/reservas', function() {
-    return view('index');
-});
-
-Route::get('/residentes', function() {
-    return view('index');
-});
-
-Route::get('/tipos_viviendas', function() {
-    return view('index');
-});
-
-Route::get('/usuarios', function() {
-    return view('index');
-});
-
-Route::get('/viviendas', function() {
-    return view('index');
-});
-
-Route::get('/zonas_comunes', function() {
-    return view('index');
-});
-
-Route::get('/zonas_comunes', function() {
-    return view('index');
-});
-
-Route::resource('bloques',BloqueController::class);
-
-Route::resource('eventos',EventoController::class);
-
-Route::resource('paquetes',PaqueteController::class);
-
-Route::resource('permisos',PermisoController::class);
-
-Route::resource('reservas',ReservaController::class);
-
-Route::resource('residentes',ResidenteController::class);
-
-Route::resource('tipos_viviendas',TiposViviendaController::class);
-
-Route::resource('usuarios',UsuarioController::class);
-
-Route::resource('viviendas',ViviendaController::class);
-
-Route::resource('zonas_comunes',ZonaComunController::class);

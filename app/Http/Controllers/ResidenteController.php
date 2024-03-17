@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Residente;
 use Illuminate\Http\Request;
 use Faker\Factory as Faker;
+use Illuminate\Support\Facades\Validator;
 
 class ResidenteController extends Controller
 {
@@ -39,7 +40,8 @@ class ResidenteController extends Controller
      */
     public function create()
     {
-        //
+        $residentes = Residente::all();
+        return view("residentes.new",compact('residentes'));
     }
 
     /**
@@ -47,7 +49,20 @@ class ResidenteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validador = Validator::make($request->all(),['nombre'=>'required|max:20','bloque_id'=>'required',
+        'movil' => 'required',
+        'bloque'=>'required',
+        'nomenclatura'=>'required',
+        'propietario'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+        Residente::create($datos);
+
+        return redirect('viviendas');
     }
 
     /**
@@ -63,7 +78,8 @@ class ResidenteController extends Controller
      */
     public function edit(Residente $residente)
     {
-        //
+        $residentes = Residente::all();
+        return view("residentes.edit",compact('residentes'));
     }
 
     /**

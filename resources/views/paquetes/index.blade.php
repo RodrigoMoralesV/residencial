@@ -9,7 +9,7 @@ Paquetes
 @endsection
 
 @section('cuerpo')
-<table class="table">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
       <th scope="col">Destinatario</th>
@@ -17,7 +17,8 @@ Paquetes
       <th scope="col">Recibido por</th>
       <th scope="col">Entregado a</th>
       <th scope="col">Estado</th>
-      <th>Opciones</th>
+      <th scope="col">Editar</th>
+      <th scope="col">Eliminar</th>
     </tr>
   </thead>
   <tbody>
@@ -27,9 +28,23 @@ Paquetes
       <td>{{ $paquete->vivienda_id }}</td>
       <td>{{ $paquete->recibido_por }}</td>
       <td>{{ $paquete->entregado_a }}</td>
-      <td>{{ $paquete->estado }}</td>
-      <td><a href="{{ route('paquetes.edit',$paquete->id) }}" class="btn btn-info">Editar</a></td>
-
+      <td>
+        @if($paquete->estado)
+          Entregado
+        @else
+          Sin entregar
+        @endif
+      </td>
+      <td>
+        <a class="btn btn-info" href="{{ route('paquetes.edit',$paquete->id) }}">
+          <i class="fas fa-edit"></i>
+        </a>
+      </td>
+      <td>
+        <a class="btn btn-danger" href="{{ route('paquetes.destroy',$paquete->id) }}">
+          <i class="fas fa-trash"></i>
+        </a>
+      </td>
     </tr>
     @endforeach
   </tbody>

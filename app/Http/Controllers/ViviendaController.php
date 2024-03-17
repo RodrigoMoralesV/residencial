@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vivienda;
-use App\Models\Bloque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,7 +22,7 @@ class ViviendaController extends Controller
      */
     public function create()
     {
-        $viviendas = Bloque::all();
+        $viviendas = vivienda::all();
         return view("viviendas.new",compact('viviendas'));
     }
 
@@ -57,7 +56,7 @@ class ViviendaController extends Controller
      */
     public function edit(Vivienda $vivienda)
     {
-        $bloques = Bloque::all();
+        $bloques = vivienda::all();
         return view("viviendas.edit",compact('bloques'));
     }
 

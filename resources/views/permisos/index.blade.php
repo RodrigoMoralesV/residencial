@@ -10,10 +10,10 @@ Permisos
 
 @section('cuerpo')
 
-<table class="table">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
-      <th scope="col">N#Vivienda</th>
+      <th scope="col">N° Vivienda</th>
       <th scope="col">Nombre visitante</th>
       <th scope="col">Documento visitante</th>
       <th scope="col">Estado</th>
@@ -26,6 +26,7 @@ Permisos
       <td>{{$permiso->nombre_visitante}}</td>
       <td>{{$permiso->documento_visitante}}</td>
       <td>{{$permiso->estado}}</td>
+      <td><a href=""></a></td>
     </tr>
   </tbody>
   @endforeach
