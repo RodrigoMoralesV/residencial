@@ -3,80 +3,107 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paquete;
+use App\Models\Vivienda;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PaqueteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $paquetes = Paquete::where('estado',1)->get();
-        return view('paquetes.index',compact('paquetes'));
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $paquetes = Paquete::where('estado', 1)->get();
+
+    return view('paquetes.index', compact('paquetes'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    $paquetes = Vivienda::all();
+
+    return view("paquetes.new", compact('paquetes'));
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    $validador = Validator::make($request->all(), [
+      'destinatario' => 'required|max:50',
+      'vivienda_id' => 'required',
+      'recibido_por' => 'required|max:50',
+      'entregado_a' => 'required|max:50',
+      'estado' => 'required',
+    ]);
+
+    if ($validador->fails()) {
+      return back()->withErrors($validador)->withInput();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $paquetes = Paquete::all();
-        return view("paquetes.new",compact('paquetes'));
+    $datos = $request->all();
+    
+    Paquete::create($datos);
+
+    return redirect('paquetes');
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(Paquete $Paquete)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(string $id)
+  {
+    $paquete = Paquete::find($id);
+
+    $viviendas = Vivienda::where('estado', 1)->get();
+
+    return view("paquetes.edit", compact('paquete', 'viviendas'));
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Paquete $Paquete)
+  {
+    $validador = Validator::make($request->all(), [
+      'destinatario' => 'required|max:50',
+      'vivienda_id' => 'required',
+      'recibido_por' => 'required|max:50',
+      'entregado_a' => 'required|max:50',
+      'estado' => 'required',
+    ]);
+
+    if ($validador->fails()) {
+      return back();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validador = Validator::make($request->all(),['destinatario'=>'required',
-        'vivenda_id'=>'required',
-        'recibido_por'=>'required',
-        'entregado_a'=>'required',
-        'estado'=>'required',]);
+    $datos = $request->all();
 
-        if ($validador->fails()){
-            return back()->withErrors($validador)->withInput();
-        }
+    $Paquete->update($datos);
 
-        $datos = $request->all();
-        Paquete::create($datos);
+    return redirect('paquetes');
+  }
 
-        return redirect('paquetes');
-    }
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(string $id)
+  {
+    Paquete::destroy($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Paquete $Paquete)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Paquete $Paquete)
-    {
-        $paquetes = Paquete::all();
-        return view("paquetes.edit",compact('paquetes'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Paquete $Paquete)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Paquete $Paquete)
-    {
-        //
-    }
+    return redirect('paquetes');
+  }
 }

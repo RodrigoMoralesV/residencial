@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Residente;
+use App\Models\Vivienda;
 use Illuminate\Http\Request;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Validator;
 
 class ResidenteController extends Controller
 {
-    public function registrar(){
+  public function registrar()
+  {
 
-        $faker = Faker::create();
+    $faker = Faker::create();
 
-        /*for ($i=0; $i < 10; $i++) { 
+    /*for ($i=0; $i < 10; $i++) { 
             Residente::create([
                 'nombre' => $faker->name(),
                 'movil' => $faker->phoneNumber(),
@@ -21,80 +23,104 @@ class ResidenteController extends Controller
             ]);
         }*/
 
-        return 'Datos';
+    return 'Datos';
+  }
+
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    $residentes = Residente::where('estado', 1)
+      ->with('vivienda')
+      ->get();
+    return view('residentes.index', compact('residentes'));
+  }
+
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create()
+  {
+    $viviendas = Vivienda::all();
+
+    return view("residentes.new", compact('viviendas'));
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    $validador = Validator::make($request->all(), [
+      'nombre' => 'required|max:50', 
+      'movil' => 'required|max:50',
+      'vivienda_id' => 'required',
+      'propietario' => 'required',
+      'estado' => 'required',
+    ]);
+
+    if ($validador->fails()) {
+      return back()->withErrors($validador)->withInput();
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $residentes = Residente::where('estado',1)
-            ->with('vivienda')
-            ->get();
-        return view('residentes.index',compact('residentes'));
+    $datos = $request->all();
+    Residente::create($datos);
+
+    return redirect('residentes');
+  }
+
+  /**
+   * Display the specified resource.
+   */
+  public function show(Residente $residente)
+  {
+    //
+  }
+
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(string $id)
+  {
+    $residentes = Residente::find($id);
+
+    $viviendas = Vivienda::all();
+
+    return view("residentes.edit", compact('residentes','viviendas'));
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Residente $residente)
+  {
+    $validador = Validator::make($request->all(), [
+      'nombre' => 'required|max:50', 
+      'movil' => 'required|max:50',
+      'vivienda_id' => 'required',
+      'propietario' => 'required',
+      'estado' => 'required',
+    ]);
+
+    if ($validador->fails()) {
+      return back()->withErrors($validador)->withInput();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $residentes = Residente::all();
-        return view("residentes.new",compact('residentes'));
-    }
+    $datos = $request->all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validador = Validator::make($request->all(),['nombre'=>'required|max:20','bloque_id'=>'required',
-        'movil' => 'required',
-        'bloque'=>'required',
-        'nomenclatura'=>'required',
-        'propietario'=>'required',]);
+    $residente->update($datos);
 
-        if ($validador->fails()){
-            return back()->withErrors($validador)->withInput();
-        }
+    return redirect('residentes');
+  }
 
-        $datos = $request->all();
-        Residente::create($datos);
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(string $id)
+  {
+    Residente::destroy($id);
 
-        return redirect('viviendas');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Residente $residente)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Residente $residente)
-    {
-        $residentes = Residente::all();
-        return view("residentes.edit",compact('residentes'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Residente $residente)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Residente $residente)
-    {
-        //
-    }
+    return redirect('residentes');
+  }
 }

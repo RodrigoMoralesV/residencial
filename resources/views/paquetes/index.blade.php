@@ -5,13 +5,14 @@ Paquetes
 @endsection
 
 @section('nuevo')
-<a class="btn btn-primary me-2" href="{{ route('paquetes.create') }}">Nuevo</a>
+<a class="btn btn-primary me-2 float-right" href="{{ route('paquetes.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
 <table class="table table-hover text-nowrap">
   <thead>
     <tr>
+      <th scope="col">ID</th>
       <th scope="col">Destinatario</th>
       <th scope="col">N° Vivienda</th>
       <th scope="col">Recibido por</th>
@@ -24,15 +25,16 @@ Paquetes
   <tbody>
     @foreach ($paquetes as $paquete)
     <tr>
+      <td>{{ $paquete->id }}</td>
       <td>{{ $paquete->destinatario }}</td>
-      <td>{{ $paquete->vivienda_id }}</td>
+      <td>{{ $paquete->vivienda->nomenclatura }}</td>
       <td>{{ $paquete->recibido_por }}</td>
       <td>{{ $paquete->entregado_a }}</td>
       <td>
         @if($paquete->estado)
-          Entregado
+        Entregado
         @else
-          Sin entregar
+        Sin entregar
         @endif
       </td>
       <td>
@@ -41,9 +43,13 @@ Paquetes
         </a>
       </td>
       <td>
-        <a class="btn btn-danger" href="{{ route('paquetes.destroy',$paquete->id) }}">
-          <i class="fas fa-trash"></i>
-        </a>
+        <form action="{{route('paquetes.destroy',$paquete->id)}}" method="post">
+          @csrf
+          @method('DELETE')
+          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
       </td>
     </tr>
     @endforeach

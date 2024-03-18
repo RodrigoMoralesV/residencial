@@ -5,13 +5,14 @@ Residentes
 @endsection
 
 @section('nuevo')
-<a class="btn btn-primary float-right" href="{{ route('reservas.create') }}">Nuevo</a>
+<a class="btn btn-primary float-right" href="{{ route('residentes.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
 <table class="table table-hover text-nowrap">
   <thead>
     <tr>
+      <th scope="col">ID</th>
       <th scope="col">Nombre</th>
       <th scope="col">Movil</th>
       <th scope="col">Bloque</th>
@@ -24,10 +25,11 @@ Residentes
   @foreach ($residentes as $residente)
   <tbody>
     <tr>
-      <td>{{$residente->nombre}}</td>
-      <td>{{$residente->movil}}</td>
-      <td>{{$residente->vivienda->bloque->nombre}}</td>
-      <td>{{$residente->vivienda->nomenclatura}}</td>
+      <td>{{ $residente->id }}</td>
+      <td>{{ $residente->nombre }}</td>
+      <td>{{ $residente->movil }}</td>
+      <td>{{ $residente->vivienda->bloque->nombre }}</td>
+      <td>{{ $residente->vivienda->nomenclatura }}</td>
       <td>
         @if($residente->propietario)
         Si
@@ -41,9 +43,13 @@ Residentes
         </a>
       </td>
       <td>
-        <a class="btn btn-danger" href="{{ route('residentes.destroy',$residente->id) }}">
-          <i class="fas fa-trash"></i>
-        </a>
+        <form action="{{route('residentes.destroy',$residente->id)}}" method="post">
+            @csrf
+            @method('DELETE')
+            <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
+              <i class="fas fa-trash"></i>
+            </button>
+          </form>
       </td>
     </tr>
   </tbody>

@@ -8,11 +8,12 @@ use App\Models\Vivienda;
 
 class Permiso extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public $fillable = ['vivienda_id','nombre_visitante','documento_visitante'];
+  public $fillable = ['vivienda_id', 'nombre_visitante', 'documento_visitante', 'estado'];
 
-    public function vivienda(){
-        return $this->belongsTo(Vivienda::class);
-    }
+  public function vivienda()
+  {
+    return $this->belongsTo(Vivienda::class);
+  }
 }
