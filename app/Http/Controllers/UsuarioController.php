@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -23,7 +24,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view("Usuario.new");
+        return view("Usuarios.new");
     }
 
     /**
@@ -31,6 +32,7 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $validador = Validator::make($request->all(),[
             'nombre'=>'required|max:100',
             'email'=>'required|max:100',
@@ -38,14 +40,21 @@ class UsuarioController extends Controller
             'estado'=>'required',]);
 
         if ($validador->fails()){
-            return back()->withErrors($validador)->withInput();
+            return back();
+            dd($request->all());
         }
 
         $datos = $request->all();
 
+        $datos['nombre'] = ucwords(strtolower($datos->get('nombre')));
+
+        $datos['email'] = strtolower($datos->get('email'));
+
+        $datos['password'] = Hash::make('password');
+
         Usuario::create($datos);
 
-        return redirect('viviendas');
+        return redirect('usuarios');
     }
 
     /**
@@ -61,9 +70,9 @@ class UsuarioController extends Controller
      */
     public function edit(string $id)
     {
-        $usuarios = Usuario::find($id);
+        $usuario = Usuario::find($id);
 
-        return view("usuarios.edit",compact('usuarios'));
+        return view("usuarios.edit",compact('usuario'));
     }
 
     /**
@@ -83,9 +92,11 @@ class UsuarioController extends Controller
 
         $datos = $request->all();
 
-        usuario->update($datos);
+        $datos['password'] = Hash::make('password');
 
-        return redirect('viviendas');
+        $usuario->update($datos);
+
+        return redirect('usuarios');
     }
 
     /**

@@ -5,7 +5,7 @@ Usuarios
 @endsection
 
 @section('nuevo')
-<!-- <a class="btn btn-primary me-2" href="{{ route('usuarios.create') }}">Nuevo</a> -->
+<a class="btn btn-primary me-2 float-right" href="{{ route('usuarios.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
