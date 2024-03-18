@@ -5,14 +5,15 @@ Zonas Comunes
 @endsection
 
 @section('nuevo')
-<a class="btn btn-primary me-2" href="{{ route('zonas_comunes.create') }}">Nuevo</a>
+<a class="btn btn-primary float-right" href="{{ route('zonas_comunes.create') }}">Nuevo</a>
 @endsection
 
 @section('cuerpo')
 
-<table class="table">
+<table class="table table-hover text-nowrap">
   <thead>
     <tr>
+      <th scope="col">ID</th>
       <th scope="col">Nombre</th>
       <th scope="col">Estado</th>
       <th scope="col">Editar</th>
@@ -22,6 +23,7 @@ Zonas Comunes
   @foreach ($zonas_comunes as $zona_comun)
   <tbody>
     <tr>
+      <td>{{ $zona_comun->id }}</td>
       <td>{{$zona_comun->nombre}}</td>
       <td>
         @if($zona_comun->estado)
@@ -36,9 +38,13 @@ Zonas Comunes
         </a>
       </td>
       <td>
-        <a class="btn btn-danger" href="{{ route('zonas_comunes.destroy',$zona_comun->id) }}">
-          <i class="fas fa-trash"></i>
-        </a>
+        <form action="{{ route('zonas_comunes.destroy',$zona_comun->id) }}" method="post">
+          @csrf
+          @method('DELETE')
+          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
       </td>
     </tr>
   </tbody>

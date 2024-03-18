@@ -14,6 +14,7 @@ class TiposViviendaController extends Controller
     public function index()
     {
         $tipos_vivienda = Tipos_vivienda::where('estado',1)->get();
+
         return view('tipos_viviendas.index',compact('tipos_vivienda'));
     }
 
@@ -23,7 +24,7 @@ class TiposViviendaController extends Controller
     public function create()
     {
         $tipos_vivienda = Tipos_vivienda::all();
-        return view("tipos_vivienda.new",compact('tipos_vivienda'));
+        return view("tipos_viviendas.new",compact('tipos_vivienda'));
     }
 
     /**
@@ -31,17 +32,17 @@ class TiposViviendaController extends Controller
      */
     public function store(Request $request)
     {
-        $validador = Validator::make($request->all(),['nombre'=>'required|max:20','bloque_id'=>'required',
-        'estado'=>'required',]);
+        $validador = Validator::make($request->all(),['nombre'=>'required|max:50','estado'=>'required',]);
 
         if ($validador->fails()){
             return back()->withErrors($validador)->withInput();
         }
 
         $datos = $request->all();
+
         Tipos_vivienda::create($datos);
 
-        return redirect('viviendas');
+        return redirect('tipos_viviendas');
     }
 
     /**
@@ -55,25 +56,38 @@ class TiposViviendaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tipos_vivienda $tipos_vivienda)
+    public function edit(string $id)
     {
-        $tipos_vivienda = Tipos_vivienda::all();
-        return view("Tipos_vivienda.edit",compact('tipos_vivienda'));
+        $tipos_vivienda = Tipos_vivienda::find($id);
+
+        return view("Tipos_viviendas.edit",compact('tipos_vivienda'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tipos_vivienda $tipo_vivienda)
+    public function update(Request $request, Tipos_vivienda $tipos_vivienda)
     {
-        //
+        $validador = Validator::make($request->all(),['nombre'=>'required|max:50','estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+
+        $tipos_vivienda->update($datos);
+
+        return redirect('tipos_viviendas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tipos_vivienda $tipo_vivienda)
+    public function destroy(string $id)
     {
-        //
+        Tipos_Vivienda::destroy($id);
+
+        return redirect ('tipos_viviendas');
     }
 }

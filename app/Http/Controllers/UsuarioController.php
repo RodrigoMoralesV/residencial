@@ -14,6 +14,7 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarios = Usuario::where('estado',1)->get();
+
         return view('usuarios.index',compact('usuarios'));
     }
 
@@ -22,8 +23,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        $viviendas = Usuario::all();
-        return view("Usuario.new",compact('usuarios'));
+        return view("Usuario.new");
     }
 
     /**
@@ -31,15 +31,18 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
-        $validador = Validator::make($request->all(),['nombre'=>'required|max:20','bloque_id'=>'required',
-        'email'=>'required',
-        'estado'=>'required',]);
+        $validador = Validator::make($request->all(),[
+            'nombre'=>'required|max:100',
+            'email'=>'required|max:100',
+            'password'=>'required|max:100',
+            'estado'=>'required',]);
 
         if ($validador->fails()){
             return back()->withErrors($validador)->withInput();
         }
 
         $datos = $request->all();
+
         Usuario::create($datos);
 
         return redirect('viviendas');
@@ -56,9 +59,10 @@ class UsuarioController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Usuario $usuario)
+    public function edit(string $id)
     {
-        $usuarios = Usuario::all();
+        $usuarios = Usuario::find($id);
+
         return view("usuarios.edit",compact('usuarios'));
     }
 
@@ -67,14 +71,30 @@ class UsuarioController extends Controller
      */
     public function update(Request $request, Usuario $usuario)
     {
-        //
+        $validador = Validator::make($request->all(),[
+            'nombre'=>'required|max:100',
+            'email'=>'required|max:100',
+            'password'=>'required|max:100',
+            'estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+
+        usuario->update($datos);
+
+        return redirect('viviendas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Usuario $usuario)
+    public function destroy(string $id)
     {
-        //
+        Usuario::destroy($id);
+
+        return redirect('usuarios');
     }
 }

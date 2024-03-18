@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Zonas_comun;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ZonaComunController extends Controller
 {
@@ -29,7 +30,18 @@ class ZonaComunController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validador = Validator::make($request->all(),
+        ['nombre'=>'required|max:50','estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+
+        Zonas_comun::create($datos);
+        
+        return redirect('zonas_comunes');
     }
 
     /**
@@ -43,25 +55,38 @@ class ZonaComunController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Zonas_comun $zonas_comun)
+    public function edit(string $id)
     {
-        $zonas_comun = Zonas_comun::all();
-        return view('edit',compact('zonas_comun'));
+        $zonas_comune = Zonas_comun::find($id);
+        
+        return view('zonas_comunes.edit',compact('zonas_comune'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Zonas_comun $zonas_comun)
+    public function update(Request $request, Zonas_comun $zonas_comune)
     {
-        //
+        $validador = Validator::make($request->all(),['nombre'=>'required|max:50','estado'=>'required',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+
+        $zonas_comune->update($datos);
+
+        return redirect('zonas_comunes');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Zonas_comun $zonas_comun)
+    public function destroy(string $id)
     {
-        //
+        Zonas_comun::destroy($id);
+
+        return redirect('zonas_comunes');
     }
 }

@@ -50,7 +50,7 @@ class LoginController extends Controller
     if (Auth::attempt($datos->except('_token'))) {
       $datos->session()->regenerate();
 
-      return redirect()->intended('residentes');
+      return redirect()->intended('home');
     }
 
     return back()->withErrors([

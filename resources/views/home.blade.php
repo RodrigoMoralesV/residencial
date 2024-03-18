@@ -5,7 +5,47 @@
 @endsection
 
 @section('cuerpo')
-<h3>Bienvenidos!</h3>
-<hr>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione sed consequatur tenetur laborum inventore necessitatibus vel! Dolore fugit reprehenderit quidem neque ex nulla ab maiores magni amet obcaecati. At tempore laboriosam ea error nisi nam accusamus eum vitae id. Asperiores deleniti unde porro consequuntur, a animi. Suscipit natus nisi vero fugiat doloribus voluptas beatae rem mollitia eos dolorem accusamus libero ea explicabo nam aut omnis aperiam, dolore fugit temporibus dicta et? Aut tenetur ipsa aliquid? Explicabo harum non cupiditate, odio deleniti quisquam tempore fugiat exercitationem porro facilis quo rem totam vitae cumque culpa perspiciatis voluptatum qui sed voluptatibus impedit reiciendis placeat temporibus consequuntur? Molestiae impedit eligendi esse voluptas quos repellendus? Eos atque quidem minus, illo porro nemo quibusdam ducimus doloremque nobis incidunt veniam fuga commodi magnam itaque ullam exercitationem ipsam suscipit in explicabo expedita? Exercitationem quis tempora enim nostrum odio quae nihil dignissimos. Minima dolores, eligendi ut nostrum temporibus quia aperiam eius, ipsam, maiores consectetur maxime. Nam minus tempore quo placeat quod libero veritatis rem nemo sunt illo maxime exercitationem ducimus enim, alias esse fugiat adipisci magni aliquam pariatur provident natus in, minima totam. Perferendis ipsum dicta autem voluptatem. Eaque eos saepe qui atque, magnam facere ab minus aut molestias earum aspernatur consequatur veritatis hic repellat exercitationem ipsum dolor quis explicabo unde laborum culpa at quod tenetur. Optio culpa ullam maxime, magni eum animi accusamus temporibus consectetur sed, quia consequuntur expedita beatae similique tenetur voluptates? Pariatur dicta nihil dolores nobis soluta similique labore earum sapiente sequi? Itaque, laboriosam molestias nulla, dolorum repudiandae deleniti nemo, id impedit modi doloremque a excepturi in! Quod quisquam dignissimos exercitationem similique eaque fuga debitis tempora possimus, accusantium, laboriosam optio assumenda, dolorem repellat maxime quae. Nesciunt modi alias atque repellat autem aliquam natus molestiae voluptas maiores. Commodi veniam vitae illo ullam? Nobis in amet necessitatibus dolorum cumque molestiae sequi eveniet, reprehenderit ad. Quibusdam omnis alias laboriosam error consequuntur nostrum itaque et, debitis ipsa rerum explicabo quas enim. Fugit perspiciatis eligendi, libero nulla doloremque porro consequuntur mollitia maxime, expedita iste exercitationem accusamus rerum suscipit autem voluptate quo, illo est totam? Mollitia, debitis corporis sit nobis doloribus eos iste. Magni deserunt est laudantium doloribus aut, aliquam omnis praesentium, pariatur necessitatibus repellendus sit facere, ab iste repudiandae. Fuga fugiat, eligendi sunt eum accusamus sapiente, corrupti veniam quae minima excepturi aspernatur sequi illo iste rem consectetur repellat, deserunt officia suscipit pariatur nisi magnam atque veritatis sed laboriosam. Accusantium ipsa illum libero odit a, consequuntur delectus, temporibus asperiores atque explicabo distinctio nihil, numquam recusandae itaque. Sapiente quia optio itaque beatae illum neque similique architecto dicta. Incidunt eveniet molestiae a placeat ea nihil architecto repellendus neque ad, ex quisquam pariatur consequuntur beatae repellat veritatis accusamus voluptatem mollitia voluptatum delectus, reprehenderit sunt eligendi commodi perferendis aperiam. Accusamus, quam. Ratione, incidunt molestias cupiditate omnis molestiae delectus exercitationem maiores harum quod magni repellendus consequatur nam natus minus. Optio quia velit commodi harum iusto dicta dolorem debitis, sit, impedit facilis atque. Dignissimos iusto sequi eum nulla. Accusamus cupiditate impedit nulla sed explicabo, ullam tempore ea a?</p>
+<div class="container mt-5">
+    <h3 class="text-center">¡Bienvenido a Aigis Co.!</h3>
+    <hr>
+
+    <p class="text-center">Tu gestión de unidad residencial simplificada.</p>
+    
+    <div class="row my-4">
+        <div class="col-md-4">
+            <h4>¿Quiénes somos?</h4>
+            <p>Somos Aigis Co., una empresa dedicada a la administración de unidades residenciales, enfocados en brindar la mejor experiencia a nuestros usuarios a través de tecnología de punta y un equipo comprometido con la excelencia.</p>
+        </div>
+        <div class="col-md-4">
+            <h4>¿Qué hacemos?</h4>
+            <p>Ofrecemos soluciones integrales para la gestión de tu comunidad, desde el manejo de pagos y cuotas de mantenimiento hasta la organización de eventos comunitarios y la gestión de incidencias y sugerencias de los residentes.</p>
+        </div>
+        <div class="col-md-4">
+            <h4>Servicios destacados</h4>
+            <ul>
+                <li>Gestión financiera</li>
+                <li>Reservas de áreas comunes</li>
+                <li>Comunicados y avisos</li>
+                <li>Seguridad y vigilancia</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="text-center my-5">
+        <h4>Comienza a gestionar tu unidad residencial hoy</h4>
+        <p>Únete a la comunidad de Aigis Co. y transforma la gestión de tu comunidad.</p>
+        <a href="https://www.youtube.com/watch?v=QSwk6k1Hejg" class="btn btn-primary">Explorar servicios</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Testimonios</h5>
+            <p>Descubre lo que nuestros clientes dicen sobre nosotros y cómo hemos transformado la gestión de sus comunidades.</p>
+        </div>
+        <div class="col-md-6">
+            <h5>Contáctanos</h5>
+            <p>¿Tienes preguntas? Nuestro equipo está listo para ayudarte. Contáctanos a través de nuestras redes sociales o email.</p>
+        </div>
+    </div>
+</div>
 @endsection

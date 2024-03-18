@@ -14,7 +14,7 @@ class PaqueteController extends Controller
    */
   public function index()
   {
-    $paquetes = Paquete::where('estado', 1)->get();
+    $paquetes = Paquete::all();
 
     return view('paquetes.index', compact('paquetes'));
   }
