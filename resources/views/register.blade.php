@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="icon" href="{{ url('dist/img/aigis.ico') }}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Registrarse</title>
@@ -14,19 +15,9 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
+  <!-- La wea del error -->
+  <link rel="stylesheet" href="{{ url('/css/error.css') }}">
 </head>
-
-<style>
-  .error {
-    color: red;
-    text-align: center;
-    font-size: .9rem;
-    padding: 2px 0;
-    border: 1px solid red;
-    border-radius: 10px;
-    margin-bottom: 10px;
-  }
-</style>
 
 <body class="hold-transition register-page">
   <div class="register-box">
@@ -76,7 +67,7 @@
 
           <div class="input-group mb-3">
             <div class="input-group-append">
-              <input type="file" class="form-control" placeholder="Foto de perfil" name="foto" required>
+              <input type="file" class="form-control" placeholder="Foto de perfil" name="foto" required accept="image/*">
               <div class="input-group-text">
                 <span class="fas fa-image"></span>
               </div>

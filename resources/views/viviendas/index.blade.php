@@ -5,7 +5,7 @@ Viviendas
 @endsection
 
 @section('nuevo')
-<a class="btn btn-primary me-2" href="{{ route('viviendas.create') }}">Nueva</a>
+<a class="btn btn-primary me-2 float-right" href="{{ route('viviendas.create') }}">Nueva</a>
 @endsection
 
 @section('cuerpo')
@@ -39,10 +39,15 @@ Viviendas
           <i class="fas fa-edit"></i>
         </a>
       </td>
-      <td>
-        <a class="btn btn-danger" href="{{ route('viviendas.destroy',$vivienda->id) }}">
-          <i class="fas fa-trash"></i>
-        </a>
+      <td style="vertical-align: middle;">
+        <form action="{{ route('viviendas.destroy',$vivienda->id) }}" method="post">
+          @csrf
+          @method('DELETE')
+
+          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
+            <i class="fas fa-trash"></i>
+          </button>
+        </form>
       </td>
     </tr>
   </tbody>

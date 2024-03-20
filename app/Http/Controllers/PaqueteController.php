@@ -87,7 +87,7 @@ class PaqueteController extends Controller
     ]);
 
     if ($validador->fails()) {
-      return back();
+      return back()->withErrors($validador);
     }
 
     $datos = $request->all();
@@ -102,7 +102,14 @@ class PaqueteController extends Controller
    */
   public function destroy(string $id)
   {
-    Paquete::destroy($id);
+    $paquete = Paquete::find($id);
+
+    if($paquete->estado == 1){
+      $paquete->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $paquete->where('id', $id)->update(['estado' => 1]); 
+    }
 
     return redirect('paquetes');
   }

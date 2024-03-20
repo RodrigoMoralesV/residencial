@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <link rel="icon" href="{{ url('dist/img/aigis.ico') }}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>App Residencial</title>
@@ -29,6 +30,8 @@
   <link rel="stylesheet" href="{{ url('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.min.css') }}">
+  <!-- La wea del error -->
+  <link rel="stylesheet" href="{{ url('/css/error.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -66,7 +69,7 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
       <a href="home" class="brand-link">
-        <img src="{{ url('dist/img/AdminLTELogo.png') }}" alt="Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="{{ url('dist/img/AdminLTELogo.png') }}" alt="Logo" class="brand-image img-fluid elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Aigis Co.</span>
       </a>
 
@@ -234,15 +237,6 @@
       </div>
       <!-- /.row -->
 
-      <!-- Footer -->
-      <footer class="main-footer">
-        <strong>Copyright &copy; 2024 <a href="https://www.youtube.com/watch?v=NNE5F6imA9g">Aigis Co</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-          <b>Version</b> 3.2.0
-        </div>
-      </footer>
-
       <!-- Control Sidebar -->
       <aside class="control-sidebar control-sidebar-dark">
         <!-- Control sidebar content goes here -->
@@ -286,5 +280,14 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <!-- <script src="{{ url('dist/js/pages/dashboard.js') }}"></script> -->
 </body>
+
+<!-- Footer -->
+<footer class="main-footer">
+  <strong>Copyright &copy; 2024 <a href="https://www.youtube.com/watch?v=NNE5F6imA9g">Aigis Co</a>.</strong>
+  All rights reserved.
+  <div class="float-right d-none d-sm-inline-block">
+    <b>Version</b> 3.2.0
+  </div>
+</footer>
 
 </html>

@@ -9,5 +9,5 @@ class Usuario extends Model
 {
     use HasFactory;
 
-    public $fillable = ['nombre','email','password','remember_token'];
+    public $fillable = ['nombre','email','password','foto','remember_token'];
 }

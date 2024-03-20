@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vivienda;
+use App\Models\Bloque;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,8 +23,8 @@ class ViviendaController extends Controller
      */
     public function create()
     {
-        $viviendas = vivienda::all();
-        return view("viviendas.new",compact('viviendas'));
+        $bloques = Bloque::all();
+        return view("viviendas.new",compact('bloques'));
     }
 
     /**
@@ -54,10 +55,13 @@ class ViviendaController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Vivienda $vivienda)
+    public function edit(string $id)
     {
-        $bloques = vivienda::all();
-        return view("viviendas.edit",compact('bloques'));
+        $bloques = Bloque::all();
+
+        $vivienda = Vivienda::find($id);
+        
+        return view("viviendas.edit",compact('bloques','vivienda'));
     }
 
     /**
@@ -65,14 +69,26 @@ class ViviendaController extends Controller
      */
     public function update(Request $request, Vivienda $vivienda)
     {
-        //
+        $validador = Validator::make($request->all(),['nomenclatura'=>'required|max:20','bloque_id'=>'required','estado'=>'required','telefono'=>'required|max:20',]);
+
+        if ($validador->fails()){
+            return back()->withErrors($validador)->withInput();
+        }
+
+        $datos = $request->all();
+
+        $vivienda->update($datos);
+
+        return redirect('viviendas');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Vivienda $vivienda)
+    public function destroy(string $id)
     {
-        //
+        Vivienda::destroy($id);
+
+        return redirect('viviendas');
     }
 }

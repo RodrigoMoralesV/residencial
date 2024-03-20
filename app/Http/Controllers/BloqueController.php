@@ -13,7 +13,7 @@ class BloqueController extends Controller
    */
   public function index()
   {
-    $bloques = Bloque::where('estado', 1)->get();
+    $bloques = Bloque::all();
 
     return view('bloques.index', compact('bloques'));
   }
@@ -31,10 +31,12 @@ class BloqueController extends Controller
    */
   public function store(Request $request)
   {
-    $validator = Validator::make($request->all(), ['nombre' => 'required|max:50', 'estado' => 'required',]);
+    $validator = Validator::make($request->all(), ['nombre' => 'required|unique:bloques|max:50', 'estado' => 'required',]);
 
     if ($validator->fails()) {
-      return back()->withErrors($validator)->withInput();
+      return back()->withErrors([
+        'nombre' => 'Ya existe un bloque con este nombre.'
+      ]);
     }
 
     $datos = $request->all();
@@ -67,10 +69,12 @@ class BloqueController extends Controller
    */
   public function update(Request $request, Bloque $bloque)
   {
-    $validator = Validator::make($request->all(), ['nombre' => 'required|max:50', 'estado' => 'required',]);
+    $validator = Validator::make($request->all(), ['nombre' => 'required|unique:bloques|max:50', 'estado' => 'required',]);
 
     if ($validator->fails()) {
-      return back()->withErrors($validator)->withInput();
+      return back()->withErrors([
+        'nombre' => 'Ya existe un bloque con este nombre.'
+      ]);
     }
 
     $datos = $request->all();
@@ -85,7 +89,14 @@ class BloqueController extends Controller
    */
   public function destroy(string $id)
   {
-    Bloque::destroy($id);
+    $bloque = Bloque::find($id);
+
+    if($bloque->estado == 1){
+      $bloque->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $bloque->where('id', $id)->update(['estado' => 1]); 
+    }
 
     return redirect('bloques');
   }

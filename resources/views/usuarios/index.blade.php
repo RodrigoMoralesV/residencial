@@ -16,6 +16,7 @@ Usuarios
       <th scope="col">ID</th>
       <th scope="col">Nombre</th>
       <th scope="col">E-mail</th>
+      <th scope="col">Foto de Perfil</th>
       <th scope="col">Estado</th>
       <th scope="col">Editar</th>
       <th scope="col">Eliminar</th>
@@ -25,22 +26,29 @@ Usuarios
   @foreach ($usuarios as $usuario)
   <tbody>
     <tr>
-      <td>{{$usuario->id}}</td>
-      <td>{{$usuario->nombre}}</td>
-      <td>{{$usuario->email}}</td>
-      <td> 
+      <td style="vertical-align: middle;">{{$usuario->id}}</td>
+      <td style="vertical-align: middle;">{{$usuario->nombre}}</td>
+      <td style="vertical-align: middle;">{{$usuario->email}}</td>
+      <td>
+        @if ($usuario->foto == null)
+          <img src="{{ url('dist/img/null.jpg') }}" class="img-thumbnail elevation-2" style="max-width: 100px; height: auto;" alt="User Image">
+        @else
+          <img src="{{ url('dist/img/',$usuario->foto) }}" class="img-thumbnail elevation-2" style="max-width: 100px; height: auto;" alt="User Image">
+        @endif
+      </td>
+      <td style="vertical-align: middle;"> 
         @if ($usuario->estado)
           Activo
         @else
           Inactivo
         @endif
       </td>
-      <td>
+      <td style="vertical-align: middle;">
         <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">
           <i class="fas fa-edit"></i>
         </a>
       </td>
-      <td>
+      <td style="vertical-align: middle;">
         <form action="{{ route('usuarios.destroy',$usuario->id) }}" method="post">
           @csrf
           @method('DELETE')
@@ -50,7 +58,6 @@ Usuarios
           </button>
         </form>
       </td>
-
     </tr>
   </tbody>
   @endforeach

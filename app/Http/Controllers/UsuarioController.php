@@ -41,14 +41,17 @@ class UsuarioController extends Controller
 
         if ($validador->fails()){
             return back();
-            dd($request->all());
         }
 
         $datos = $request->all();
 
-        $datos['nombre'] = ucwords(strtolower($datos->get('nombre')));
+        if (isset($datos['nombre'])) {
+            $datos['nombre'] = ucwords(strtolower($datos['nombre']));
+        }
 
-        $datos['email'] = strtolower($datos->get('email'));
+        if (isset($datos['email'])) {
+            $datos['email'] = strtolower($request->get('email'));
+        }
 
         $datos['password'] = Hash::make('password');
 

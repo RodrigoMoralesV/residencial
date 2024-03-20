@@ -15,15 +15,22 @@ Nuevo bloque
 
   <div class="mb-3 col-md-3 pt-4">
     <label for="descripcion" class="form-label">Nombre del bloque</label>
+
+    @error('nombre')
+      <div class="error">
+        {{ $message }}
+      </div>
+    @enderror
+    
     <input type="text" name="nombre" placeholder="Nombre" class="form-control" autofocus required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="descripcion" class="form-label">Estado</label><br>
-    <select name="estado" class="form-select" required>
+    <select name="estado" class="form-control" required>
       <option value="">Seleccione el estado</option>
       <option value="1">Activo</option>
-      <option value="2">Inactivo</option>
+      <option value="0">Inactivo</option>
     </select>
   </div>
 

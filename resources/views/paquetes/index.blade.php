@@ -19,7 +19,7 @@ Paquetes
       <th scope="col">Entregado a</th>
       <th scope="col">Estado</th>
       <th scope="col">Editar</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col">Gestionar</th>
     </tr>
   </thead>
   <tbody>
@@ -43,12 +43,21 @@ Paquetes
         </a>
       </td>
       <td>
-        <form action="{{route('paquetes.destroy',$paquete->id)}}" method="post">
+        <form action="{{ route('paquetes.destroy', $paquete->id) }}" method="post">
           @csrf
           @method('DELETE')
-          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
-            <i class="fas fa-trash"></i>
-          </button>
+
+          @if($paquete->estado)
+            <button class="btn btn-danger"
+              onclick="return confirm('¿Realmente quiere inhabilitar el registro?')">
+              <i class="fas fa-times"></i>
+            </button>
+          @else
+            <button class="btn btn-success"
+              onclick="return confirm('¿Realmente quiere habilitar el registro?')">
+              <i class="fas fa-check"></i>
+            </button>
+          @endif
         </form>
       </td>
     </tr>

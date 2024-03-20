@@ -15,11 +15,25 @@ Editar evento
 
   <div class="mb-3 col-md-3 pt-4">
     <label for="descripcion" class="form-label">Nombre del evento</label>
+
+    @error('nombre')
+      <div class="error">
+        {{ $message }}
+      </div>
+    @enderror
+
     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del evento" value="{{ old('nombre',$evento->nombre) }}" autofocus required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="descripcion" class="form-label">Descripción</label>
+
+    @error('descripcion')
+      <div class="error">
+        {{ $message }}
+      </div>
+    @enderror
+    
     <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Descripción del evento" value="{{ old('descripcion',$evento->descripcion) }}" required>
   </div>
 
@@ -30,15 +44,22 @@ Editar evento
 
   <div class="col-md-6 mb-3">
     <label for="hora" class="form-label">Hora</label>
+
+    @error('hora')
+    <div class="error ">
+      {{ $message }}
+    </div>
+    @enderror
+
     <input type="time" class="form-control" id="hora" name="hora" value="{{ old('hora',$evento->hora) }}" required>
   </div>
 
   <div class="col-md-6 mb-3">
     <label for="estado" class="form-label">Estado</label><br>
-    <select class="form-select" id="estado" name="estado" value="{{ old('estado',$evento->estado) }}" required>
+    <select class="form-control" id="estado" name="estado" value="{{ old('estado',$evento->estado) }}" required>
       <option value="">Seleccione el estado</option>
       <option value="1">Activo</option>
-      <option value="2">Inactivo</option>
+      <option value="0">Inactivo</option>
     </select>
   </div>
 

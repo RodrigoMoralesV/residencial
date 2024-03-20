@@ -13,7 +13,7 @@ class EventoController extends Controller
    */
   public function index()
   {
-    $eventos = Evento::where('estado', 1)->get();
+    $eventos = Evento::all();
     
     return view('eventos.index', compact('eventos'));
   }
@@ -31,17 +31,22 @@ class EventoController extends Controller
    */
   public function store(Request $request)
   {
-    $validator = Validator::make($request->all(), ['nombre' => 'required|max:100', 'estado' => 'required|max:100','fecha' => 'required', 'hora' => 'required', 'estado' => 'required',]);
+    $validator = Validator::make($request->all(), [
+      'nombre' => 'required|max:100', 
+      'descripcion' => 'required|max:100', 
+      'fecha' => 'required',
+      'hora' => 'required', 
+      'estado' => 'required',]);
 
-    if($validator->fails()){
-      return back();
+    if ($validator->fails()) {
+      return back()->withErrors($validator);
     }
 
-    $datos = $request->all();
+      $datos = $request->all();
 
-    Evento::create($datos);
+      Evento::create($datos);
 
-    return redirect('eventos');
+      return redirect('eventos');
   }
 
   /**
@@ -67,10 +72,29 @@ class EventoController extends Controller
    */
   public function update(Request $request, Evento $evento)
   {
-    $validator = Validator::make($request->all(), ['nombre' => 'required|max:100', 'estado' => 'required|max:100','fecha' => 'required', 'hora' => 'required', 'estado' => 'required',]);
+    $validator = Validator::make($request->all(), [
+      'nombre' => 'required|max:100', 
+      'descripcion' => 'required|max:100', 
+      'fecha' => ['required',
+        function ($attribute, $value, $fail) use ($request) {
+        // Verificar que la combinación de fecha y hora no coincida con los valores enviados en la solicitud
+          $fecha_enviada = $request->input('fecha');
+          $hora_enviada = $request->input('hora');
 
-    if($validator->fails()){
-      return back();
+          if ($value === $fecha_enviada && $value === $hora_enviada) {
+            $fail('La fecha y hora no pueden coincidir con los valores enviados.');
+          }
+        },
+      ], 
+      'hora' => 'required', 
+      'estado' => 'required',]);
+
+    if ($validator->fails()) {
+      return back()->withErrors([
+        'nombre' => 'El nombre del evento excede los caracteres maximos',
+        'descripcion' => 'La descripción del evento excede los caracteres maximos',
+        'hora' => 'La fecha y hora no pueden coincidir con los valores enviados',
+      ]);
     }
     
     $datos = $request->all();
@@ -85,7 +109,14 @@ class EventoController extends Controller
    */
   public function destroy(string $id)
   {
-    Evento::destroy($id);   
+    $evento = Evento::find($id);
+
+    if($evento->estado == 1){
+      $evento->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $evento->where('id', $id)->update(['estado' => 1]); 
+    }
 
     return redirect('eventos');
   }

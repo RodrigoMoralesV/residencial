@@ -13,13 +13,20 @@ Nuevo paquete
   @csrf
 
   <div class="mb-3 col-md-3 pt-4">
-    <label for="destinario" class="form-label">Nombre del destinario</label>
-    <input type="text" name="destinatario" placeholder="Destinatario" autofocus required>
+    <label for="destinario" class="form-label">Nombre del destinario</label><br>
+
+    @error('destinatario')
+      <div class="error">
+        {{ $message }}
+      </div>    
+    @enderror
+
+    <input type="text" name="destinatario" class="form-control" placeholder="Destinatario" autofocus required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="vivienda" class="form-label">Vivienda del destinario</label>
-    <select name="vivienda_id">
+    <select name="vivienda_id" class="form-control">
       <option value="">Seleccione una opcion...</option>
       @foreach ($paquetes as $paquete)
       <option value="{{ $paquete->id }}">{{ $paquete->nomenclatura }}</option>
@@ -28,21 +35,35 @@ Nuevo paquete
   </div>
 
   <div class="mb-3 col-md-3">
-    <label for="recibido" class="form-label">Recibido por</label>
-    <input type="text" name="recibido_por" placeholder="Recibido por: " required>
+    <label for="recibido" class="form-label">Recibido por</label><br>
+
+    @error('recibido_por')
+      <div class="error">
+        {{ $message }}
+      </div>    
+    @enderror
+
+    <input type="text" name="recibido_por" class="form-control" placeholder="Recibido por: " required>
   </div>
 
   <div class="mb-3 col-md-3">
-    <label for="entregado" class="form-label">Entregado a</label>
-    <input type="text" name="entregado_a" placeholder="Entregado a: " required>
+    <label for="entregado" class="form-label">Entregado a</label><br>
+    
+    @error('entregado_a')
+      <div class="error">
+        {{ $message }}
+      </div>    
+    @enderror
+
+    <input type="text" name="entregado_a" class="form-control" placeholder="Entregado a: " required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="entregado" class="form-label">Estado</label><br>
-    <select name="estado">
+    <select name="estado" class="form-control">
       <option value="">Seleccione el estado</option>
       <option value="1">Entregado</option>
-      <option value="2">Sin entregar</option>
+      <option value="0">Sin entregar</option>
     </select>
   </div>
 

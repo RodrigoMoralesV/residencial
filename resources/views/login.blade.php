@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <link rel="icon" href="{{ url('dist/img/aigis.ico') }}">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Iniciar Sesión</title>
@@ -13,20 +14,10 @@
   <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ url('dist/css/adminlte.min.css') }}">
+  <!-- La wea del error -->
+  <link rel="stylesheet" href="{{ url('/css/error.css') }}">
 </head>
-
-<style>
-	.error {
-		color: red;
-		text-align: center;
-		font-size: .9rem;
-		padding: 2px 0;
-		border: 1px solid red;
-		border-radius: 10px;
-		margin-bottom: 10px;
-	}
-</style>
-
+	
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
