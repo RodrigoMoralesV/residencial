@@ -11,8 +11,10 @@ class LoginController extends Controller
 {
   public function register(Request $datos)
   {
-
     $validador = Validator::make($datos->all(), [
+      "nombre" => "required|max:100",
+      "email" => "required|unique:usuarios|max:100",
+      "password" => "required|max:100",
       "foto" => "mimes:jpeg,jpg,png"
     ]);
 

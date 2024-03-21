@@ -13,7 +13,7 @@ class TiposViviendaController extends Controller
      */
     public function index()
     {
-        $tipos_vivienda = Tipos_vivienda::where('estado',1)->get();
+        $tipos_vivienda = Tipos_vivienda::all();
 
         return view('tipos_viviendas.index',compact('tipos_vivienda'));
     }
@@ -86,8 +86,15 @@ class TiposViviendaController extends Controller
      */
     public function destroy(string $id)
     {
-        Tipos_Vivienda::destroy($id);
-
+        $tipo = Tipos_vivienda::find($id);
+    
+        if($tipo->estado == 1){
+          $tipo->where('id', $id)->update(['estado' => 0]);
+        } 
+        else{
+          $tipo->where('id', $id)->update(['estado' => 1]); 
+        }
+    
         return redirect ('tipos_viviendas');
     }
 }

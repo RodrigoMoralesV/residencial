@@ -25,12 +25,26 @@ Editar permiso
 
   <div class="col-md-3 mb-3">
     <label for="visitante" class="form-label">Nombre del visitante</label>
-    <input type="text" name="nombre_visitante" placeholder="Nombre visitante" value="{{ old('nombre_visitante',$permiso->nombre_visitante) }}" required autofocus>
+
+    @error('nombre_visitante')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" class="form-control" name="nombre_visitante" placeholder="Nombre visitante" value="{{ old('nombre_visitante',$permiso->nombre_visitante) }}" required autofocus>
   </div>
 
   <div class="col-md-3 mb-3">
     <label for="documento" class="form-label">Documento del visitante</label>
-    <input type="text" name="documento_visitante" placeholder="Documento" value="{{ old('documento_visitante',$permiso->documento_visitante) }}" required>
+
+    @error('documento_visitante')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" class="form-control" name="documento_visitante" placeholder="Documento" value="{{ old('documento_visitante',$permiso->documento_visitante) }}" required>
   </div>
 
   <div class="col-md-3 mb-3">
@@ -38,7 +52,7 @@ Editar permiso
     <select name="estado">
       <option value="">Seleccione un estado.....</option>
       <option value="1">Activo</option>
-      <option value="2">Inactivo</option>
+      <option value="0">Inactivo</option>
     </select>
   </div>
 

@@ -14,17 +14,38 @@ Nuevo residente
 
   <div class="mb-3 col-md-3 pt-4">
     <label for="nombre" class="form-label">Nombre del residente</label>
-    <input type="text" name="nombre" placeholder="Nombre" autofocus required>
+
+    @error('nombre')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" class="form-control" name="nombre" placeholder="Nombre" autofocus required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="telefono" class="form-label">Teléfono</label>
-    <input type="text" name="movil" placeholder="Teléfono" required>
+
+    @error('movil')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+      
+    <input type="text" class="form-control" name="movil" placeholder="Teléfono" required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="vivienda_id" class="form-label">Vivienda</label><br>
-    <select name="vivienda_id">
+
+    @error('vivienda_id')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+      
+    <select name="vivienda_id" class="form-control">
       <option value="">Seleccione una casa...</option>
       @foreach ($viviendas as $vivienda)
       <option value="{{ $vivienda->id }}">{{ $vivienda->nomenclatura }}</option>
@@ -34,19 +55,33 @@ Nuevo residente
 
   <div class="mb-3 col-md-3">
     <label for="propietario" class="form-label">¿El residente es propietario?</label><br>
-    <select name="propietario">
+
+    @error('propietario')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+      
+    <select name="propietario" class="form-control">
       <option value="">¿El residente es propietario?</option>
       <option value="1">Si</option>
-      <option value="2">No</option>
+      <option value="0">No</option>
     </select>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="estado" class="form-label">Estado</label><br>
-    <select class="form-select" id="estado" name="estado" required>
+
+    @error('estado')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+      
+    <select class="form-control" id="estado" name="estado" required>
       <option value="">Seleccione el estado</option>
       <option value="1">Activo</option>
-      <option value="2">Inactivo</option>
+      <option value="0">Inactivo</option>
     </select>
   </div>
 

@@ -19,7 +19,7 @@ Usuarios
       <th scope="col">Foto de Perfil</th>
       <th scope="col">Estado</th>
       <th scope="col">Editar</th>
-      <th scope="col">Eliminar</th>
+      <th scope="col">Gestionar</th>
       <th></th>
     </tr>
   </thead>
@@ -49,13 +49,21 @@ Usuarios
         </a>
       </td>
       <td style="vertical-align: middle;">
-        <form action="{{ route('usuarios.destroy',$usuario->id) }}" method="post">
+        <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="post">
           @csrf
           @method('DELETE')
 
-          <button class="btn btn-danger" onclick="return confirm('¿Realmente quiere eliminar el registro?')">
-            <i class="fas fa-trash"></i>
-          </button>
+          @if($usuario->estado)
+            <button class="btn btn-danger"
+              onclick="return confirm('¿Realmente quiere inhabilitar el registro?')">
+              <i class="fas fa-times"></i>
+            </button>
+          @else
+            <button class="btn btn-success"
+              onclick="return confirm('¿Realmente quiere habilitar el registro?')">
+              <i class="fas fa-check"></i>
+            </button>
+          @endif
         </form>
       </td>
     </tr>

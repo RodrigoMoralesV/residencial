@@ -14,7 +14,7 @@ class PermisoController extends Controller
    */
   public function index()
   {
-    $permisos = Permiso::where('estado', 1)->get();
+    $permisos = Permiso::all();
 
     return view('permisos.index', compact('permisos'));
   }
@@ -36,8 +36,8 @@ class PermisoController extends Controller
   {
     $validador = Validator::make($request->all(), [
       'vivienda_id' => 'required',
-      'nombre_visitante' => 'required|max:50',
-      'documento_visitante' => 'required|max:50',
+      'nombre_visitante' => 'required|unique:permisos|max:50',
+      'documento_visitante' => 'required|unique:permisos|max:50',
       'estado' => 'required',
     ]);
 
@@ -79,13 +79,13 @@ class PermisoController extends Controller
   {
     $validador = Validator::make($request->all(), [
       'vivienda_id' => 'required',
-      'nombre_visitante' => 'required|max:50',
-      'documento_visitante' => 'required|max:50',
+      'nombre_visitante' => 'required|unique:permisos|max:50',
+      'documento_visitante' => 'required|unique:permisos|max:50',
       'estado' => 'required',
     ]);
 
     if ($validador->fails()) {
-      return back()->withErrors($validador)->withInput();
+      return back()->withErrors($validador);
     }
 
     $datos = $request->all();
@@ -100,7 +100,15 @@ class PermisoController extends Controller
    */
   public function destroy(string $id)
   {
-    Permiso::destroy($id);
+    $permiso = Permiso::find($id);
+
+    if($permiso->estado == 1){
+      $permiso->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $permiso->where('id', $id)->update(['estado' => 1]); 
+    }
+
 
     return redirect('permisos');
   }

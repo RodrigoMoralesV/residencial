@@ -12,18 +12,18 @@ class ResidenteController extends Controller
 {
   public function registrar()
   {
-
     $faker = Faker::create();
 
-    /*for ($i=0; $i < 10; $i++) { 
+    for ($i=0; $i < 5; $i++) { 
             Residente::create([
                 'nombre' => $faker->name(),
                 'movil' => $faker->phoneNumber(),
-                'vivienda_id' => $faker->numberBetween(1,4)
+                'vivienda_id' => $faker->numberBetween(1,4),
+                'propietario' => $faker->numberBetween(0,1)
             ]);
-        }*/
+        }
 
-    return 'Datos';
+    return view('residentes.index');
   }
 
   /**
@@ -31,9 +31,8 @@ class ResidenteController extends Controller
    */
   public function index()
   {
-    $residentes = Residente::where('estado', 1)
-      ->with('vivienda')
-      ->get();
+    $residentes = Residente::all();
+    
     return view('residentes.index', compact('residentes'));
   }
 
@@ -42,7 +41,7 @@ class ResidenteController extends Controller
    */
   public function create()
   {
-    $viviendas = Vivienda::all();
+    $viviendas = Vivienda::where('estado',1)->get();
 
     return view("residentes.new", compact('viviendas'));
   }
@@ -65,6 +64,7 @@ class ResidenteController extends Controller
     }
 
     $datos = $request->all();
+
     Residente::create($datos);
 
     return redirect('residentes');
@@ -95,6 +95,8 @@ class ResidenteController extends Controller
    */
   public function update(Request $request, Residente $residente)
   {
+    //dd($request->all());
+
     $validador = Validator::make($request->all(), [
       'nombre' => 'required|max:50', 
       'movil' => 'required|max:50',
@@ -119,7 +121,14 @@ class ResidenteController extends Controller
    */
   public function destroy(string $id)
   {
-    Residente::destroy($id);
+    $residente = Residente::find($id);
+
+    if($residente->estado == 1){
+      $residente->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $residente->where('id', $id)->update(['estado' => 1]); 
+    }
 
     return redirect('residentes');
   }

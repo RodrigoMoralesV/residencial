@@ -15,9 +15,7 @@ class ReservaController extends Controller
    */
   public function index()
   {
-    $reservas = Reserva::where('estado', 1)
-      ->with('zonas_comun')
-      ->get();
+    $reservas = Reserva::all();
 
     return view('reservas.index', compact('reservas'));
   }
@@ -110,7 +108,14 @@ class ReservaController extends Controller
    */
   public function destroy(string $id)
   {
-    Reserva::destroy($id);
+    $reserva = Reserva::find($id);
+
+    if($reserva->estado == 1){
+      $reserva->where('id', $id)->update(['estado' => 0]);
+    } 
+    else{
+      $reserva->where('id', $id)->update(['estado' => 1]); 
+    }
 
     return redirect('reservas');
   }

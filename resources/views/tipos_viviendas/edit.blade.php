@@ -14,12 +14,26 @@ Editar vivienda
   @method('PUT')
   
   <div class="mb-3 col-md-3 pt-4">
-    <label for="evento" class="form-label">Nombre de la Vivienda</label>
-    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre de la vivienda" value="{{ old('nombre',$tipos_vivienda->nombre) }}" autofocus required>
+    <label for="evento" class="form-label">Tipo de Vivienda</label>
+
+    @error('nombre')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Tipo vivienda" value="{{ old('nombre',$tipos_vivienda->nombre) }}" autofocus required>
   </div>
 
   <div class="mb-3 col-md-3">
     <label for="estado" class="form-label">Estado</label><br>
+
+    @error('estado')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
     <select class="form-select" id="estado" name="estado" required>
       <option value="">Seleccione el estado</option>
       <option value="1">Activo</option>

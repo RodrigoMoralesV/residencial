@@ -14,7 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = Usuario::where('estado',1)->get();
+        $usuarios = Usuario::all();
 
         return view('usuarios.index',compact('usuarios'));
     }
@@ -30,34 +30,42 @@ class UsuarioController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $datos)
     {
         // dd($request->all());
-        $validador = Validator::make($request->all(),[
-            'nombre'=>'required|max:100',
-            'email'=>'required|max:100',
-            'password'=>'required|max:100',
-            'estado'=>'required',]);
-
-        if ($validador->fails()){
-            return back();
-        }
-
-        $datos = $request->all();
-
-        if (isset($datos['nombre'])) {
-            $datos['nombre'] = ucwords(strtolower($datos['nombre']));
-        }
-
-        if (isset($datos['email'])) {
-            $datos['email'] = strtolower($request->get('email'));
-        }
-
-        $datos['password'] = Hash::make('password');
-
-        Usuario::create($datos);
-
-        return redirect('usuarios');
+        $validador = Validator::make($datos->all(), [
+            "nombre" => "required|max:100",
+            "email" => "required|unique:usuarios|max:100",
+            "password" => "required|max:100",
+            "foto" => "mimes:jpeg,jpg,png"
+          ]);
+      
+          if ($validador->fails()) {
+            return back()->withErrors($validador);
+          }
+      
+          $nombre = $datos;
+      
+          $datos['nombre'] = ucwords(strtolower($datos->get('nombre')));
+      
+          $datos['email'] = strtolower($datos->get('email'));
+      
+          if (isset($datos['foto'])) {
+            $foto = time().".".$nombre['foto']->extension();
+      
+            $datos->foto->move(public_path("dist/img"), $foto);
+          } else{
+            $foto = null;
+          }
+      
+          $datos = Usuario::create([
+            'nombre' => $datos['nombre'],
+            'email' => $datos['email'],
+            'password' => $datos['password'],
+            'foto' => $foto,
+          ]);
+      
+          return redirect('usuarios');
     }
 
     /**
@@ -81,25 +89,41 @@ class UsuarioController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Usuario $usuario)
+    public function update(Request $datos, Usuario $usuario)
     {
-        $validador = Validator::make($request->all(),[
-            'nombre'=>'required|max:100',
-            'email'=>'required|max:100',
-            'password'=>'required|max:100',
-            'estado'=>'required',]);
-
-        if ($validador->fails()){
-            return back()->withErrors($validador)->withInput();
-        }
-
-        $datos = $request->all();
-
-        $datos['password'] = Hash::make('password');
-
-        $usuario->update($datos);
-
-        return redirect('usuarios');
+        $validador = Validator::make($datos->all(), [
+            "nombre" => "required|max:100",
+            "email" => "required|max:100",
+            "password" => "required|max:100",
+            "foto" => "mimes:jpeg,jpg,png"
+          ]);
+      
+          if ($validador->fails()) {
+            return back()->withErrors($validador);
+          }
+      
+          $nombre = $datos;
+      
+          $datos['nombre'] = ucwords(strtolower($datos->get('nombre')));
+      
+          $datos['email'] = strtolower($datos->get('email'));
+      
+          if (isset($datos['foto'])) {
+            $foto = time().".".$nombre['foto']->extension();
+      
+            $datos->foto->move(public_path("dist/img"), $foto);
+          } else{
+            $foto = null;
+          }
+      
+          $datos = $usuario->update([
+            'nombre' => $datos['nombre'],
+            'email' => $datos['email'],
+            'password' => $datos['password'],
+            'foto' => $foto,
+          ]);
+      
+          return redirect('usuarios');
     }
 
     /**
@@ -107,8 +131,15 @@ class UsuarioController extends Controller
      */
     public function destroy(string $id)
     {
-        Usuario::destroy($id);
-
+        $usuario = Usuario::find($id);
+    
+        if($usuario->estado == 1){
+          $usuario->where('id', $id)->update(['estado' => 0]);
+        } 
+        else{
+          $usuario->where('id', $id)->update(['estado' => 1]); 
+        }
+    
         return redirect('usuarios');
     }
 }

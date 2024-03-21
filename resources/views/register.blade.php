@@ -32,13 +32,14 @@
         <form action="register" method="post" enctype="multipart/form-data">
           @csrf
 
-          @error('foto')
-          <div class="error">
-            {{ $message }}
-          </div>
-          @enderror
-
           <div class="input-group mb-3">
+
+            @error('nombre')
+            <div class="error">
+              {{ $message }}
+            </div>
+            @enderror
+
             <input type="text" class="form-control" placeholder="Nombre de Usuario" name="nombre" required>
             <div class="input-group-append">
               <div class="input-group-text">
@@ -48,6 +49,13 @@
           </div>
 
           <div class="input-group mb-3">
+          
+            @error('email')
+            <div class="error">
+              {{ $message }}
+            </div>
+            @enderror
+
             <input type="email" class="form-control" placeholder="Email" name="email" required>
             <div class="input-group-append">
               <div class="input-group-text">
@@ -57,6 +65,13 @@
           </div>
 
           <div class="input-group mb-3">
+
+            @error('password')
+            <div class="error">
+              {{ $message }}
+            </div>
+            @enderror
+
             <input type="password" class="form-control" placeholder="Password" name="password" required>
             <div class="input-group-append">
               <div class="input-group-text">
@@ -67,7 +82,14 @@
 
           <div class="input-group mb-3">
             <div class="input-group-append">
-              <input type="file" class="form-control" placeholder="Foto de perfil" name="foto" required accept="image/*">
+
+              @error('foto')
+              <div class="error">
+                {{ $message }}
+              </div>
+              @enderror
+
+              <input type="file" class="form-control" placeholder="Foto de perfil" name="foto" accept="image/*">
               <div class="input-group-text">
                 <span class="fas fa-image"></span>
               </div>

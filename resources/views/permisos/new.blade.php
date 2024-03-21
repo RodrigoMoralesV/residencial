@@ -14,7 +14,7 @@ Nuevo permiso
 
   <div class="col-md-3 mb-3 pt-4">
     <label for="casa" class="form-label">Casa que visitara</label><br>
-    <select name="vivienda_id">
+    <select name="vivienda_id" class="form-control">
       <option value="">Seleccione una casa.......</option>
       @foreach ($permisos as $permiso)
       <option value="{{ $permiso->id }}">{{ $permiso->nomenclatura }}</option>
@@ -24,20 +24,34 @@ Nuevo permiso
 
   <div class="col-md-3 mb-3">
     <label for="visitante" class="form-label">Nombre del visitante</label>
-    <input type="text" name="nombre_visitante" placeholder="Nombre visitante" required autofocus>
+
+    @error('nombre_visitante')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" name="nombre_visitante" class="form-control" placeholder="Nombre visitante" required autofocus>
   </div>
 
   <div class="col-md-3 mb-3">
     <label for="documento" class="form-label">Documento del visitante</label>
-    <input type="text" name="documento_visitante" placeholder="Documento" required>
+
+    @error('documento_visitante')
+    <div class="error">
+      {{ $message }}
+    </div>
+    @enderror
+
+    <input type="text" class="form-control" name="documento_visitante" placeholder="Documento" required>
   </div>
 
   <div class="col-md-3 mb-3">
     <label for="estado" class="form-label">Estado</label><br>
-    <select name="estado">
+    <select name="estado" class="form-control">
       <option value="">Seleccione un estado.....</option>
       <option value="1">Activo</option>
-      <option value="2">Inactivo</option>
+      <option value="0  ">Inactivo</option>
     </select>
   </div>
 

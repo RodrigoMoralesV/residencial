@@ -23,7 +23,8 @@ class ViviendaController extends Controller
      */
     public function create()
     {
-        $bloques = Bloque::all();
+        $bloques = Bloque::where('estado',1)->get();
+
         return view("viviendas.new",compact('bloques'));
     }
 
@@ -32,7 +33,11 @@ class ViviendaController extends Controller
      */
     public function store(Request $request)
     {
-        $validador = Validator::make($request->all(),['nomenclatura'=>'required|max:20','bloque_id'=>'required','estado'=>'required','telefono'=>'required|max:20',]);
+        $validador = Validator::make($request->all(),[
+            'nomenclatura'=>'required|unique:viviendas|max:20',
+            'bloque_id'=>'required',
+            'estado'=>'required',
+            'telefono'=>'required|max:20',]);
 
         if ($validador->fails()){
             return back()->withErrors($validador)->withInput();
@@ -57,7 +62,7 @@ class ViviendaController extends Controller
      */
     public function edit(string $id)
     {
-        $bloques = Bloque::all();
+        $bloques = Bloque::where('estado',1)->get();
 
         $vivienda = Vivienda::find($id);
         
@@ -69,7 +74,11 @@ class ViviendaController extends Controller
      */
     public function update(Request $request, Vivienda $vivienda)
     {
-        $validador = Validator::make($request->all(),['nomenclatura'=>'required|max:20','bloque_id'=>'required','estado'=>'required','telefono'=>'required|max:20',]);
+        $validador = Validator::make($request->all(),[
+            'nomenclatura'=>'required|max:20',
+            'bloque_id'=>'required',
+            'estado'=>'required',
+            'telefono'=>'required|max:20',]);
 
         if ($validador->fails()){
             return back()->withErrors($validador)->withInput();
@@ -87,8 +96,15 @@ class ViviendaController extends Controller
      */
     public function destroy(string $id)
     {
-        Vivienda::destroy($id);
-
+        $vivienda = Vivienda::find($id);
+    
+        if($vivienda->estado == 1){
+          $vivienda->where('id', $id)->update(['estado' => 0]);
+        } 
+        else{
+          $vivienda->where('id', $id)->update(['estado' => 1]); 
+        }
+    
         return redirect('viviendas');
     }
 }

@@ -29,8 +29,8 @@ Editar paquete
     <label for="vivienda" class="form-label">Vivienda del destinario</label>
     <select name="vivienda_id" class="form-control">
       <option value="">Seleccione una opcion...</option>
-      @foreach ($paquetes as $paquete)
-      <option value="{{ $paquete->id }}">{{ $paquete->nomenclatura }}</option>
+      @foreach ($viviendas as $vivienda)
+      <option value="{{ $vivienda->id }}">{{ $vivienda->nomenclatura }}</option>
       @endforeach
     </select>
   </div>
